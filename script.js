@@ -1,3 +1,4 @@
+// Computer chooses rock, paper or scissors
 function getComputerChoice() {
     let randomSelector = Math.floor(Math.random() * 3) + 1;
     
@@ -11,14 +12,23 @@ function getComputerChoice() {
     
 }
 
-function playRound(playerSelection, computerSelection) {
+ //Takes players input and makes sure the first letter of the input is capitalized. Example "Rock".
+function capitalized(playerSelection) {
     let lowerCase = playerSelection.toLowerCase();
     let firstChar = lowerCase.charAt(0);
     let removeFirstChar = lowerCase.slice(1);
     let upperCase = firstChar.toUpperCase();
     let putWordTogether = upperCase.concat(removeFirstChar);
+    
     playerSelection = putWordTogether;
+    
+    return playerSelection;
+}
 
+// Plays a round of rock, paper, scissors
+function playRound(playerSelection, computerSelection) {
+   
+    //Checks the result of a round of rock, paper, scissors
        if (computerSelection == "Paper"  && playerSelection == "Rock") {
         return "You Lose! Paper beats Rock";
     } else if (computerSelection == "Scissors" && playerSelection == "Paper") {
@@ -45,6 +55,7 @@ function playRound(playerSelection, computerSelection) {
     
 }
 
+//Plays a full game of rock, paper, scissors. There's 5 rounds per game. 
 function game() {
   
     let computersPoints = 0;
@@ -52,8 +63,10 @@ function game() {
     let tieInPoints = 0;
     let result = "";
     
+    //Generates 5 rounds of the game.
     for (let i = 0; i < 5; i++) {
-        const playerSelection = prompt("Rock, paper or scissors?");
+        let playerSelection = prompt("Rock, paper or scissors?");
+        playerSelection = capitalized(playerSelection);
         const computerSelection = getComputerChoice();
         result = playRound(playerSelection, computerSelection);
         console.log(result);
@@ -67,6 +80,7 @@ function game() {
         }
         
     }
+    //Checks to see who won the game.
     if (playersPoints > computersPoints) {
         return "Winner!"
     } else if (computersPoints > playersPoints) {
